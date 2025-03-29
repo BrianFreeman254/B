@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intertwined - Our Story</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --light: #ecf0f1;
+            --accent: #f1c40f;
+            --text: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+        
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/800') center/cover no-repeat;
+            color: white;
+            position: relative;
+        }
+        
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            background-color: rgba(44, 62, 80, 0.8);
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin: 0 20px;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .title {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .section {
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background-color: var(--secondary);
+            bottom: -10px;
+            left: 25%;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .person {
+            width: 45%;
+            margin-bottom: 50px;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        
+        .person:hover {
+            transform: translateY(-10px);
+        }
+        
+        .person img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .person h3 {
+            margin-top: 20px;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .person p {
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 100px auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: var(--light);
+            border: 4px solid var(--secondary);
+            border-radius: 50%;
+            top: 20px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+            text-align: right;
+        }
+        
+        .right {
+            left: 50%;
+            text-align: left;
+        }
+        
+        .left::after {
+            right: -17px;
+        }
+        
+        .right::after {
+            left: -17px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-gap: 20px;
+            margin-top: 50px;
+        }
+        
+        .gallery-item {
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            height: 250px;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        
+        .quote-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/api/placeholder/1200/800') center/cover no-repeat;
+            color: white;
+            padding: 150px 0;
+            text-align: center;
+        }
+        
+        .quote {
+            font-size: 2rem;
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .quote-author {
+            margin-top: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .heart-animation {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary);
+            transform: rotate(45deg);
+            animation: pulse 1.5s infinite;
+            opacity: 0.7;
+        }
+        
+        .heart-animation:before,
+        .heart-animation:after {
+            content: "";
+            width: 50px;
+            height: 50px;
+            background-color: var(--secondary);
+            border-radius: 50%;
+            position: absolute;
+        }
+        
+        .heart-animation:before {
+            top: -25px;
+            left: 0;
+        }
+        
+        .heart-animation:after {
+            top: 0;
+            left: -25px;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: rotate(45deg) scale(1);
+            }
+            50% {
+                transform: rotate(45deg) scale(1.3);
+            }
+            100% {
+                transform: rotate(45deg) scale(1);
+            }
+        }
+        
+        footer {
+            padding: 50px 0;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin: 20px 0;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent);
+        }
+        
+        .footer-text {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .modal-content {
+            margin: 5% auto;
+            display: block;
+            width: 80%;
+            max-width: 1000px;
+            max-height: 80vh;
+            object-fit: contain;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Count section */
+        .count-section {
+            background-color: var(--primary);
+            color: white;
+            padding: 80px 0;
+        }
+
+        .count-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .count-item {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .count-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .count-label {
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 768px) {
+            .title {
+                font-size: 3rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .person {
+                width: 100%;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 15px;
+            }
+            
+            .left {
+                text-align: left;
+            }
+            
+            .right {
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#journey">Our Journey</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#future">Our Future</a></li>
+        </ul>
+    </nav>
+
+    <header id="home">
+        <div class="heart-animation" style="bottom: 60%; right: 25%;"></div>
+        <div class="heart-animation" style="top: 30%; left: 20%;"></div>
+        <h1 class="title">Our Love Story</h1>
+        <p class="subtitle">Two souls, one path, endless possibilities</p>
+        <a href="#about" class="btn">Begin Our Journey</a>
+    </header>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Us</h2>
+            <div class="flex-container">
+                <div class="person">
+                    <img src="/api/placeholder/500/600" alt="Person 1">
+                    <h3>Your Name</h3>
+                    <p>Write a brief introduction about yourself here. Share your passions, dreams, and what makes you unique. This is your space to shine and let your personality come through.</p>
+                </div>
+                <div class="person">
+                    <img src="/api/placeholder/500/600" alt="Person 2">
+                    <h3>Your Partner's Name</h3>
+                    <p>This space is for your partner's introduction. Describe their wonderful qualities, what they love doing, and what makes them special in your eyes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="quote-section">
+        <div class="container">
+            <div class="quote">"Love is not about how many days, months, or years you have been together. Love is about how much you love each other every single day."</div>
+            <div class="quote-author">— Unknown</div>
+        </div>
+    </div>
+
+    <section id="journey" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Journey Together</h2>
+            <div class="timeline">
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>How We Met</h3>
+                        <p>Describe the magical moment when you first met. Was it by chance or by design? What were your first impressions?</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>First Date</h3>
+                        <p>Recall your first date together. What did you do? How did you feel? What made it special?</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Falling in Love</h3>
+                        <p>Share the moments when you realized you were falling in love. What qualities made you fall for each other?</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Memorable Moments</h3>
+                        <p>Highlight some of your most cherished memories together - trips, celebrations, or simple moments that meant the world.</p>
+                    </div>
+                </div>
+                <div class="timeline-item left">
+                    <div class="timeline-content">
+                        <h3>Challenges Overcome</h3>
+                        <p>Every relationship faces challenges. Share how you've grown stronger by facing obstacles together.</p>
+                    </div>
+                </div>
+                <div class="timeline-item right">
+                    <div class="timeline-content">
+                        <h3>Today</h3>
+                        <p>Where your relationship stands today. What makes your bond unique and special in the present moment?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="count-section">
+        <div class="container">
+            <div class="count-container">
+                <div class="count-item">
+                    <div class="count-number" id="days-together">0</div>
+                    <div class="count-label">Days Together</div>
+                </div>
+                <div class="count-item">
+                    <div class="count-number" id="adventures">0</div>
+                    <div class="count-label">Adventures</div>
+                </div>
+                <div class="count-item">
+                    <div class="count-number" id="memories">0</div>
+                    <div class="count-label">Memories Created</div>
+                </div>
+                <div class="count-item">
+                    <div class="count-number" id="laughs">0</div>
+                    <div class="count-label">Shared Laughs</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Gallery</h2>
+            <p>A collection of our favorite moments together. Click on any image to view it in full size.</p>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="/api/placeholder/600/600" alt="Gallery Image 1" onclick="openModal(this.src)">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/600/600" alt="Gallery Image 2" onclick="openModal(this.src)">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/600/600" alt="Gallery Image 3" onclick="openModal(this.src)">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/600/600" alt="Gallery Image 4" onclick="openModal(this.src)">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/600/600" alt="Gallery Image 5" onclick="openModal(this.src)">
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/600/600" alt="Gallery Image 6" onclick="openModal(this.src)">
+                </div>
+            </div>
+        </div>
+        <div id="image-modal" class="modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <img class="modal-content" id="modal-image">
+        </div>
+    </section>
+
+    <section id="future" class="section">
+        <div class="container">
+            <h2 class="section-title">Our Future Together</h2>
+            <p>As we continue to write our story, here are the dreams we share and the future we're building together.</p>
+            <div class="flex-container" style="margin-top: 50px;">
+                <div class="person">
+                    <h3>Our Dreams</h3>
+                    <p>List the dreams you share as a couple. What are you working towards? What kind of life are you building together?</p>
+                </div>
+                <div class="person">
+                    <h3>Our Promises</h3>
+                    <p>Share the promises you've made to each other. How do you commit to nurturing your relationship and supporting each other's growth?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h3>Stay Connected</h3>
+            <div class="social-links">
+                <!-- Add your social media links here -->
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p class="footer-text">© 2025 - Our Love Story | Created with Love</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Modal functionality
+        function openModal(src) {
+            document.getElementById('image-modal').style.display = "block";
+            document.getElementById('modal-image').src = src;
+        }
+        
+        function closeModal() {
+            document.getElementById('image-modal').style.display = "none";
+        }
+        
+        // Counting animation for stats
+        function animateCount(id, start, end, duration) {
+            let range = end - start;
+            let current = start;
+            let increment = end > start ? 1 : -1;
+            let stepTime = Math.abs(Math.floor(duration / range));
+            let obj = document.getElementById(id);
+            
+            let timer = setInterval(function() {
+                current += increment;
+                obj.innerHTML = current;
+                if (current == end) {
+                    clearInterval(timer);
+                }
+            }, stepTime);
+        }
+        
+        // Calculate days together (example: starting from January 1, 2023)
+        const startDate = new Date('2023-01-01'); // Change this to your actual start date
+        const currentDate = new Date();
+        const diffTime = Math.abs(currentDate - startDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        // Update counts when scrolled into view
+        const countSection = document.querySelector('.count-section');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCount("days-together", 0, diffDays, 2000);
+                    animateCount("adventures", 0, 15, 2000); // Change to your actual count
+                    animateCount("memories", 0, 100, 2000); // Change to your actual count
+                    animateCount("laughs", 0, 1000, 2000); // Change to your actual count
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        observer.observe(countSection);
+    </script>
+</body>
+</html>
