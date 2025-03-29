@@ -7,6 +7,7 @@
 // 5. Session timeout security
 
 // ===== PIN AUTHENTICATION SYSTEM =====
+<script>
 (function() {
     // Create and append the PIN authentication overlay
     function createPinOverlay() {
@@ -351,3 +352,4 @@
         document.addEventListener(event, updateTimestamp, { passive: true });
     });
 })();
+</script>
